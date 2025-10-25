@@ -12,6 +12,7 @@
    - Перейдите в `Settings → Collaborators`.
    - Нажмите `Add people`.
    - Введите логин `boralytix` и подтвердите добавление с правами `Read` или `Write`.
+5. Сообщите преподавателю в Telegram ([@iloveteachmath](https://t.me/iloveteachmath)) вашу группу, ФИО и логин.
 
 ## Настройка и синхронизация обновлений
 
