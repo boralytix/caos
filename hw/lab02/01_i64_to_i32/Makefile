@@ -1,7 +1,9 @@
 # Makefile для задачи i64-to-i32 (lab02)
 # Синтаксис Intel, сборка с использованием simpleio_x86_64.S
 
-SIMPLEIO := ../../asm/simpleio_x86_64.S
+vpath %.S ../../asm
+
+SIMPLEIO := simpleio_x86_64.S
 TARGET   := i64_to_i32
 SRC      := solution02_01.s $(SIMPLEIO)
 
