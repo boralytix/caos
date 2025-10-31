@@ -11,3 +11,5 @@
 [Задача 1. i64-to-i32](./01_i64_to_i32/README.md)
 
 [Задача 2. countdown](./02_countdown/README.md)
+
+[Задача 3. mul-shift-add](./03_mul_shift_add/README.md)
