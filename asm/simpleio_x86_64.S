@@ -7,7 +7,7 @@ readi32:
     push rbp
     mov  rbp, rsp
 
-    sub  rsp, 32               # было 24 — ломало 16-байтное выравнивание
+    sub  rsp, 32
     xor  eax, eax
     lea  rdi, [rip + .L2]      # "%d"
     mov  rsi, rsp              # буфер под int
@@ -19,7 +19,7 @@ readi32:
     je   .L1
     stc
 .L1:
-    add  rsp, 32               # было 24
+    add  rsp, 32
     pop  rbp
     ret
 
@@ -67,7 +67,7 @@ readi64:
     push rbp
     mov  rbp, rsp
 
-    sub  rsp, 32               # было 24 — выравниваем на 16 перед scanf
+    sub  rsp, 32
     xor  eax, eax
     lea  rdi, [rip + .L4]      # "%lld"
     mov  rsi, rsp              # буфер под long long
@@ -81,7 +81,7 @@ readi64:
     je   .L5
     stc
 .L5:
-    add  rsp, 32               # было 24
+    add  rsp, 32
     pop  rbp
     ret
 
