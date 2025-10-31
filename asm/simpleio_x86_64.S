@@ -7,25 +7,24 @@ readi32:
     push rbp
     mov  rbp, rsp
 
-    sub  rsp, 24
+    sub  rsp, 32               # было 24 — ломало 16-байтное выравнивание
     xor  eax, eax
-    lea  rdi, [rip + .L2]    # "%d"
-    mov  rsi, rsp            # адрес буфера под int
+    lea  rdi, [rip + .L2]      # "%d"
+    mov  rsi, rsp              # буфер под int
     call scanf
-    mov  ecx, eax            # сколько полей считано
-    mov  eax, dword ptr [rsp]# прочитанное значение в EAX
+    mov  ecx, eax
+    mov  eax, dword ptr [rsp]
     clc
     cmp  ecx, 1
     je   .L1
     stc
 .L1:
-    lea  rsp, [rsp + 24]
+    add  rsp, 32               # было 24
     pop  rbp
     ret
 
 .section .string,"aMS",@progbits,1
-.L2:
-    .asciz "%d"
+.L2: .asciz "%d"
 
 .text
 .align 16
@@ -34,21 +33,20 @@ writei32:
     push rbp
     mov  rbp, rsp
     mov  esi, edi
-    xor  eax, eax
-    lea  rdi, [rip + .L3]
+    xor  eax, eax              # для varargs
+    lea  rdi, [rip + .L3]      # "%d"
     call printf
     pop  rbp
     ret
 
 .section .string,"aMS",@progbits,1
-.L3:
-    .asciz "%d"
+.L3: .asciz "%d"
 
 .text
 .align 16
 .global finish
 finish:
-    xor  edi, edi            # exit(0)
+    xor  edi, edi
     call exit
 
 .text
@@ -57,7 +55,7 @@ finish:
 nl:
     push rbp
     mov  rbp, rsp
-    mov  edi, 10             # '\n'
+    mov  edi, 10               # '\n'
     call putchar
     pop  rbp
     ret
@@ -69,27 +67,26 @@ readi64:
     push rbp
     mov  rbp, rsp
 
-    sub  rsp, 24
+    sub  rsp, 32               # было 24 — выравниваем на 16 перед scanf
     xor  eax, eax
-    lea  rdi, [rip + .L4]    # "%lld"
-    mov  rsi, rsp            # адрес буфера под long long
+    lea  rdi, [rip + .L4]      # "%lld"
+    mov  rsi, rsp              # буфер под long long
     call scanf
     mov  ecx, eax
-    mov  rax, qword ptr [rsp]   # полное 64-битное число в RAX
-    mov  rdx, rax               # скопировать в RDX
-    sar  rdx, 32                # арифм. сдвиг → старшие 32 бита со знаком в EDX
+    mov  rax, qword ptr [rsp]  # 64-битное значение в RAX
+    mov  rdx, rax
+    sar  rdx, 32               # старшие 32 бита со знаком → EDX
     clc
     cmp  ecx, 1
     je   .L5
     stc
 .L5:
-    lea  rsp, [rsp + 24]
+    add  rsp, 32               # было 24
     pop  rbp
     ret
 
 .section .string,"aMS",@progbits,1
-.L4:
-    .asciz "%lld"
+.L4: .asciz "%lld"
 
 .text
 .align 16
@@ -99,14 +96,13 @@ writei64:
     mov  rbp, rsp
     mov  rsi, rdi
     xor  eax, eax
-    lea  rdi, [rip + .L6]
+    lea  rdi, [rip + .L6]      # "%lld"
     call printf
     pop  rbp
     ret
 
 .section .string,"aMS",@progbits,1
-.L6:
-    .asciz "%lld"
+.L6: .asciz "%lld"
 
 # убрать предупреждение про исполняемый стек
 .section .note.GNU-stack,"",@progbits
