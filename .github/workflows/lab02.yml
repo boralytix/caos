@@ -13,6 +13,12 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        task:
+          - "01_i64_to_i32"
+          - "02_countdown"
 
     steps:
       - name: Checkout
@@ -24,10 +30,9 @@ jobs:
           sudo apt-get install -y gcc make python3
 
       - name: Build
-        working-directory: hw/lab02/01_i64_to_i32
+        working-directory: hw/lab02/${{ matrix.task }}
         run: make
 
       - name: Run tests
-        working-directory: hw/lab02/01_i64_to_i32
-        run: |
-          make test
+        working-directory: hw/lab02/${{ matrix.task }}
+        run: make test
