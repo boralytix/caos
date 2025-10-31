@@ -1,27 +1,30 @@
-# Makefile для задачи i64-to-i32 (lab02)
-# Синтаксис Intel, сборка с использованием simpleio_x86_64.S
+SHELL := /bin/bash
 
-vpath %.S ../../asm
+SIMPLEIO := $(abspath ../../../asm/simpleio_x86_64.S)
 
-SIMPLEIO := simpleio_x86_64.S
-TARGET   := i64_to_i32
-SRC      := solution02_01.s $(SIMPLEIO)
+TARGET    := i64_to_i32
+SRC_LOCAL := solution02_01.s
 
-CC       := gcc
-LDFLAGS  := -no-pie
+CC      := gcc
+LDFLAGS := -no-pie
 
-.PHONY: all run clean test
+.PHONY: all run test clean echo
 
 all: $(TARGET)
 
-$(TARGET): $(SRC)
-	$(CC) $(LDFLAGS) -o $@ $(SRC)
+$(TARGET): $(SRC_LOCAL) $(SIMPLEIO)
+	$(CC) $(LDFLAGS) -o $@ $(SRC_LOCAL) $(SIMPLEIO)
 
 run: $(TARGET)
+	@echo "Введите 64-битное знаковое число и нажмите Enter:"
 	./$(TARGET)
 
-test: all
-	python3 -m unittest -v
+test: $(TARGET)
+	python3 -m unittest discover -s tests -p "test_*.py" -v
 
 clean:
 	rm -f $(TARGET)
+
+echo:
+	@echo "SIMPLEIO = $(SIMPLEIO)"
+	@ls -l $(SIMPLEIO)
