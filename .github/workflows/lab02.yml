@@ -20,17 +20,18 @@ jobs:
           - "01_i64_to_i32"
           - "02_countdown"
           - "03_mul_shift_add"
+          - "04_my_sin"
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install dependencies
+      - name: Install deps
         run: |
           sudo apt-get update
           sudo apt-get install -y gcc make python3
 
-      - name: Build task
+      - name: Build
         working-directory: hw/lab02/${{ matrix.task }}
         run: make
 
