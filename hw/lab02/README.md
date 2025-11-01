@@ -13,3 +13,5 @@
 [Задача 2. countdown](./02_countdown/README.md)
 
 [Задача 3. mul-shift-add](./03_mul_shift_add/README.md)
+
+[Задача 4. my-sin](./04_my_sin/README.md)
