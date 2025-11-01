@@ -15,3 +15,5 @@
 [Задача 3. mul-shift-add](./03_mul_shift_add/README.md)
 
 [Задача 4. my-sin](./04_my_sin/README.md)
+
+[Задача 5. sys-echo](./05_sys_echo/README.md)
